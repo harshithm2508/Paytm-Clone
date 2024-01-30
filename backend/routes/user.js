@@ -6,7 +6,7 @@ const JWT_SECRET = require('../config')
 const { UserModel } = require('../database')
 
 const signUpSchema = zod.object({
-    username : zod.string(),
+    username : zod.string().email(),
     password : zod.string(),
     firstName : zod.string(),
     lastName : zod.string()
