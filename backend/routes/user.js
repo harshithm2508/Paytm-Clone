@@ -43,6 +43,45 @@ router.post('/signup', async (req,res)=>{
     })
 })
 
+const signInBody = zod.object({
+    username : zod.string().email(),
+    password : zod.string()
+})
+
+router.post('/signin',(req,res)=>{
+
+    const loginData = req.body;
+    
+    const { success } = signInBody.safeParse(loginData);
+
+    if(!success){
+        res.status(411).json({
+            message : "There were incorrect inputs."
+        })
+    }
+
+    const user = UserModel.findOne({
+        username : req.body.username,
+        password : req.body.password
+    })
+
+    if(user){
+        const token = jwt.sign({
+            userId : user._id
+        },JWT_SECRET)
+
+        res.json({
+            token : token
+        })
+        return;
+    }
+
+    res.json({
+        message : "There was an error while logging in."
+    })
+
+
+})
 
 
 
