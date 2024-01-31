@@ -3,8 +3,9 @@ const zod = require('zod');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = require('../config')
-const { UserModel } = require('../database');
+const { UserModel, Account } = require('../database');
 const { authMiddleware } = require('../middleware');
+const { default: mongoose } = require('mongoose');
 
 const signUpSchema = zod.object({
     username : zod.string().email(),
@@ -34,6 +35,10 @@ router.post('/signup', async (req,res)=>{
         })
     }
 
+    await Account.create({
+        userId,
+        balance : 1 + Math.random()*10000
+    })
 
     const addUser = await UserModel.create(body);
     const userId = addUser._id;
