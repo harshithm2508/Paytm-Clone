@@ -6,6 +6,7 @@ import { Button } from "../components/Button";
 import { ButtonWarning } from "../components/ButtonWarning";
 import { Input } from "postcss";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export function SignUp(){
 
@@ -13,6 +14,7 @@ export function SignUp(){
     const [ lastName, setLastName ] = useState("");
     const [ username, setUsername ] = useState("");
     const [ password, setPassword ] = useState("");
+    const navigator = useNavigate();
 
     return <div className="bg-slate-300 h-screen flex justify-center">
         <div className="flex flex-col justify-center">
@@ -46,6 +48,7 @@ export function SignUp(){
                                 password
                             })
                             localStorage.setItem('token',response.data.token)
+                            navigator('/dashboard')
                         }}/>
                     </div>
                     <ButtonWarning label={"Already have an account ?"} buttonText={"Sign In"} to={"/signin"} />
