@@ -1,6 +1,6 @@
 import React from "react";
 
-export function InputBox({label,placeholder}){
+export function InputBox({label,placeholder,onChange}){
  return <div>
     {/* Input bar Heading */}
     <div className="text-sm font-medium text-left py-2">
@@ -8,7 +8,7 @@ export function InputBox({label,placeholder}){
     </div>
 
     {/* input field */}
-    <input placeholder={placeholder} className="w-full px-2 py-1 border rounded border-slate-200"/>
+    <input onChange={onChange} placeholder={placeholder} className="w-full px-2 py-1 border rounded border-slate-200"/>
  </div>
     
 }
